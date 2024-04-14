@@ -2,14 +2,21 @@ import httpx
 import pandas as pd
 import tqdm
 
-API_URL = "https://clinicaltrials.gov/api/v2/studies?pageSize=1000"
-PAGES = 491
+API_URL = "https://clinicaltrials.gov/api/v2"
+GET_STUDIES_URL = API_URL + "/studies?pageSize=1000"
+GET_STUDY_SIZES_URL = API_URL + "/stats/size"
 
-response_json = httpx.get(API_URL).json()
+
+def get_number_of_studies() -> int:
+    response_json = httpx.get(GET_STUDY_SIZES_URL).json()
+    return response_json.get("totalStudies")
+
+
+pages = (get_number_of_studies() // 1000) + 1
+response_json = httpx.get(GET_STUDIES_URL).json()
 df = pd.json_normalize(response_json.get("studies"))
 
-# In order to display a progress bar, I need to manually set the number of interations as 492.
-for _ in tqdm.trange(PAGES):
+for _ in tqdm.trange(pages):
     try:
         next_page_token = response_json.get("nextPageToken")
         if next_page_token:
