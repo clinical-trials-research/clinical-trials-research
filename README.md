@@ -15,7 +15,7 @@ python -m venv .venv
 Install
 
 ```bash
-pip install -e .
+pip install -e '.[test,dev]'
 ```
 
 ## Progress
