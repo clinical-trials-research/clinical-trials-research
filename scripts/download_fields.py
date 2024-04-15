@@ -1,31 +1,16 @@
-import httpx
 import pandas as pd
 import tqdm
+from ctr import api
 
-API_URL = "https://clinicaltrials.gov/api/v2"
-GET_STUDIES_URL = API_URL + "/studies?pageSize=1000"
-GET_STUDY_SIZES_URL = API_URL + "/stats/size"
+number_of_pages = (api.stats_size().totalStudies // 1000) + 1
+response = api.studies()
+df = pd.json_normalize(response.studies)
 
-
-# Get number of pages.
-response_json = httpx.get(GET_STUDY_SIZES_URL).json()
-total_studies = response_json.get("totalStudies")
-pages = (total_studies // 1000) + 1
-
-# Download fields.
-response_json = httpx.get(GET_STUDIES_URL).json()
-df = pd.json_normalize(response_json.get("studies"))
-
-for _ in tqdm.trange(pages):
+for _ in tqdm.trange(number_of_pages):
     try:
-        next_page_token = response_json.get("nextPageToken")
-        if next_page_token:
-            response_json = httpx.get(
-                GET_STUDIES_URL + f"&pageToken={next_page_token}"
-            ).json()
-            df = pd.concat(
-                [df, pd.json_normalize(response_json["studies"])], ignore_index=True
-            )
+        if response.nextPageToken:
+            response = api.studies(page_token=response.nextPageToken)
+            df = pd.concat([df, pd.json_normalize(response.studies)], ignore_index=True)
         else:
             break
     except Exception as e:
@@ -33,5 +18,5 @@ for _ in tqdm.trange(pages):
         break
 
 print("Finished downloading! Converting to pickle file...")
-df.to_pickle("./fields.pkl")
+df.to_pickle("./field.pkl")
 print("Done converting!")
