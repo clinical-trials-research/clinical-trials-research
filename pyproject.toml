@@ -16,4 +16,4 @@ dependencies = ["httpx", "jupyter", "matplotlib", "numpy", "pandas", "pydantic"]
 
 [project.optional-dependencies]
 dev = ["tqdm"]
-test = []
+test = ["pytest"]
