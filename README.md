@@ -21,9 +21,8 @@ pip install -e '.[test,dev]'
 ## Progress
 
 - [ ] Field Analysis
-  - [x] Display `DataFrame` of fields and summary statistics.
-  - [ ] Settle discrepency in field names.
-  - [ ] Clean up null values.
+  - [x] Extract fields data into a `DataFrame`.
+  - [ ] Deal with nested data in fields.
 
 ## Resources
 
