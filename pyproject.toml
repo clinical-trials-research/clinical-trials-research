@@ -12,7 +12,15 @@ authors = [
   { name = "Anushka", email = "anushkakgupta@gmail.com" },
   { name = "Wuihee", email = "wuihee@gmail.com" },
 ]
-dependencies = ["httpx", "jupyter", "matplotlib", "numpy", "pandas", "pydantic"]
+dependencies = [
+  "httpx",
+  "jupyter",
+  "matplotlib",
+  "numpy",
+  "pandas",
+  "pydantic",
+  "missingno",
+]
 
 [project.optional-dependencies]
 dev = ["tqdm"]
