@@ -23,6 +23,7 @@ pip install -e '.[test,dev]'
 - [ ] Field Analysis
   - [x] Extract fields data into a `DataFrame`.
   - [ ] Deal with nested data in fields.
+  - [ ] Display summary statistics of all data.
 
 ## Resources
 
