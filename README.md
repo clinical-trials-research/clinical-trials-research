@@ -22,11 +22,17 @@ pip install -e '.[test,dev]'
 ## Progress
 
 - [ ] Literature Review
+- [ ] `ctr` Utility Package
+  - [ ] Display fields by piece instead of full name.
 - [ ] Field Analysis
   - [x] Extract fields data into a `DataFrame`.
-  - [ ] Deal with nested data in fields.
+  - [ ] Flatten all fields.
   - [ ] Display summary statistics of all data.
 - [ ] Embed & Analyze "Detailed Description Field.
+  - [x] Preprocess data.
+  - [ ] Embed "detailed description" field.
+  - [ ] Clustering the embedded data.
+  - [ ] Compare clusters with MeSH terms and keywords.
 
 ## Resources
 
