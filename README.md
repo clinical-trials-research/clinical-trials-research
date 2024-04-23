@@ -23,6 +23,7 @@ pip install -e '.[test,dev]'
 
 - [ ] Literature Review
 - [ ] `ctr` Utility Package
+  - [x] Clincial Trials API.
   - [ ] Display fields by piece instead of full name.
 - [ ] Field Analysis
   - [x] Extract fields data into a `DataFrame`.
