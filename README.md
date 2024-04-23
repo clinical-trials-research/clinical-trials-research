@@ -1,10 +1,5 @@
 # Clinical Trials Research
 
-## Notebooks
-
-1. [Field Analysis](./notebooks/01-field-analysis.ipynb)
-2. [Embedding Detailed Descriptions](./notebooks/02-embedding-detailed-descriptions.ipynb)
-
 ## Installation
 
 Create a virtual environment.
@@ -19,6 +14,11 @@ Install
 pip install -e '.[test,dev]'
 ```
 
+## Notebooks
+
+1. [Field Analysis](./notebooks/01-field-analysis.ipynb)
+2. [Embedding Detailed Descriptions](./notebooks/02-embedding-detailed-descriptions.ipynb)
+
 ## Progress
 
 - [ ] Literature Review
@@ -28,7 +28,7 @@ pip install -e '.[test,dev]'
   - [x] Extract fields data into a `DataFrame`.
   - [ ] Flatten all fields.
   - [ ] Display summary statistics of all data.
-- [ ] Embed & Analyze "Detailed Description Field.
+- [ ] Embed & Analyze "Detailed Description" Field.
   - [x] Preprocess data.
   - [ ] Embed "detailed description" field.
   - [ ] Clustering the embedded data.
