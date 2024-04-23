@@ -3,6 +3,7 @@
 ## Notebooks
 
 1. [Field Analysis](./notebooks/01-field-analysis.ipynb)
+2. [Embedding Detailed Descriptions](./notebooks/02-embedding-detailed-descriptions.ipynb)
 
 ## Installation
 
@@ -20,10 +21,12 @@ pip install -e '.[test,dev]'
 
 ## Progress
 
+- [ ] Literature Review
 - [ ] Field Analysis
   - [x] Extract fields data into a `DataFrame`.
   - [ ] Deal with nested data in fields.
   - [ ] Display summary statistics of all data.
+- [ ] Embed & Analyze "Detailed Description Field.
 
 ## Resources
 
