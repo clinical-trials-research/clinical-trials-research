@@ -16,10 +16,12 @@ dependencies = [
   "httpx",
   "jupyter",
   "matplotlib",
+  "missingno",
+  "nltk",
   "numpy",
   "pandas",
   "pydantic",
-  "missingno",
+  "scikit-learn",
 ]
 
 [project.optional-dependencies]
