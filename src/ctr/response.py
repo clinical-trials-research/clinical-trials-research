@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 
-class StudiesResponse(BaseModel):
+class GetStudiesResponse(BaseModel):
     """
     Response from /studies.
     """
@@ -10,7 +10,7 @@ class StudiesResponse(BaseModel):
     nextPageToken: str
 
 
-class StatsSizeResponse(BaseModel):
+class GetStudySizesResponse(BaseModel):
     """
     Response from /stats/size.
     """
@@ -18,3 +18,9 @@ class StatsSizeResponse(BaseModel):
     totalStudies: int
     averageSizeBytes: int
     percentiles: dict
+
+
+class GetFieldValuesResponse(BaseModel):
+    """
+    Response from /stats/field/values.
+    """
