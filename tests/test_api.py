@@ -1,15 +1,15 @@
 from ctr import api
 
 
-def test_studies() -> None:
+def test_get_studies() -> None:
     """
     Test API call to /studies.
     """
-    api.studies(page_size=1)
+    api.get_studies(page_size=1)
 
 
-def test_stats_size() -> None:
+def test_get_study_sizes() -> None:
     """
     Test API call to /stats/size.
     """
-    api.stats_size()
+    api.get_study_sizes()
