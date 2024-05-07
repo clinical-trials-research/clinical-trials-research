@@ -163,3 +163,4 @@ cython_debug/
 
 # Ignore fields data.
 fields.pkl
+fields.json
