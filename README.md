@@ -26,9 +26,9 @@ pip install -e '.[test,dev]'
   - [x] Clincial Trials API.
   - [ ] Display fields by piece instead of full name.
 - [ ] Field Analysis
+  - [x] Flatten all fields.
   - [x] Extract fields data into a `DataFrame`.
-  - [ ] Flatten all fields.
-  - [ ] Display summary statistics of all data.
+  - [ ] Display summary statistics of all non-string data.
 - [ ] Embed & Analyze "Detailed Description" Field.
   - [x] Preprocess data.
   - [ ] Embed "detailed description" field.
