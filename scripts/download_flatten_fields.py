@@ -18,7 +18,7 @@ def process_trial(fields: defaultdict, data: dict, prefix=[]) -> None:
             fields[name].append(value)
 
 
-def save_fields(fields, db):
+def save_fields(fields: dict, db):
     for key, value in fields.items():
         if key in db:
             db[key].extend(value)
@@ -27,14 +27,11 @@ def save_fields(fields, db):
 
 
 def main():
+    Path("./data/raw/fields").mkdir(parents=True, exist_ok=True)
+
     fields = defaultdict(list)
     number_of_pages = (api.get_study_sizes().totalStudies // 1000) + 1
     response = api.get_studies()
-
-    fields_dir = Path("./fields")
-    if not fields_dir.exists():
-        fields_dir.mkdir(parents=True, exist_ok=True)
-        print("Created /fields to store data files.\n")
 
     batch_size = 100
     batch_count = 0
