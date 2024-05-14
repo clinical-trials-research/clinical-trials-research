@@ -18,6 +18,14 @@ def process_trial(fields: defaultdict, data: dict, prefix=[]) -> None:
             fields[name].append(value)
 
 
+def save_fields(fields, db):
+    for key, value in fields.items():
+        if key in db:
+            db[key].extend(value)
+        else:
+            db[key] = value
+
+
 def main():
     fields = defaultdict(list)
     number_of_pages = (api.get_study_sizes().totalStudies // 1000) + 1
@@ -26,25 +34,36 @@ def main():
     fields_dir = Path("./fields")
     if not fields_dir.exists():
         fields_dir.mkdir(parents=True, exist_ok=True)
-        print("Created /fields to store data files.")
+        print("Created /fields to store data files.\n")
 
-    for _ in tqdm.trange(number_of_pages):
-        for trial in response.studies:
-            process_trial(fields, trial)
-        try:
-            if response.nextPageToken:
-                response = api.get_studies(page_token=response.nextPageToken)
-            else:
+    batch_size = 100
+    batch_count = 0
+
+    with shelve.open("./fields/fields.shelf", writeback=True) as db:
+        for _ in tqdm.trange(number_of_pages):
+            for trial in response.studies:
+                process_trial(fields, trial)
+
+            batch_count += 1
+
+            if batch_count >= batch_size:
+                save_fields(fields, db)
+                fields = defaultdict(list)
+                batch_count = 0
+
+            try:
+                if response.nextPageToken:
+                    response = api.get_studies(page_token=response.nextPageToken)
+                else:
+                    break
+            except Exception as e:
+                print(f"Encountered erorr {e}.")
                 break
-        except Exception as e:
-            print(f"Encountered erorr {e}.")
-            break
+
+        if fields:
+            save_fields(fields, db)
 
     print("Finished downloading! Storing data...")
-    with shelve.open("./fields/fields.shelf") as db:
-        for key, value in fields.items():
-            db[key] = value
-    print("Done storing!")
 
 
 if __name__ == "__main__":
