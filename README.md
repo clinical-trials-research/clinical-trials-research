@@ -24,11 +24,14 @@ pip install -e '.[test,dev]'
 - [ ] Literature Review
 - [ ] `ctr` Utility Package
   - [x] Clincial Trials API.
+  - [ ] Improve scripts to download data.
   - [ ] Display fields by piece instead of full name.
+  - [ ] Remove `pydantic`?
 - [ ] Field Analysis
   - [x] Flatten all fields.
   - [x] Extract fields data into a `DataFrame`.
-  - [ ] Display summary statistics of all non-string data.
+  - [x] Display summary statistics of all non-string data.
+  - [ ] Preprocess data more so that summary statistics make sense.
 - [ ] Embed & Analyze "Detailed Description" Field.
   - [x] Preprocess data.
   - [ ] Embed "detailed description" field.
