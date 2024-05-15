@@ -4,7 +4,7 @@ from ctr.endpoints import StatsEndpoints, StudiesEndpoints
 from ctr.response import GetStudiesResponse, GetStudySizesResponse
 
 
-def get_studies(*, page_size=1000, page_token="") -> GetStudiesResponse:
+def get_studies(*, page_size: int = 1000, page_token: str = "") -> GetStudiesResponse:
     """
     API call to /studies.
 
@@ -17,11 +17,13 @@ def get_studies(*, page_size=1000, page_token="") -> GetStudiesResponse:
     Returns:
         StudiesResponse: Pydantic model containing studies and next page token.
     """
-    URL = StudiesEndpoints.STUDIES + f"?pageSize={page_size}"
+    params = {"pageSize": str(page_size)}
     if page_token:
-        URL += f"&pageToken={page_token}"
-    response_json = httpx.get(URL).json()
-    return GetStudiesResponse(**response_json)
+        params.update({"pageToken": page_token})
+
+    response = httpx.get(StudiesEndpoints.STUDIES, params=params)
+    response.raise_for_status()
+    return GetStudiesResponse(**response.json())
 
 
 def get_study_sizes() -> GetStudySizesResponse:
@@ -37,14 +39,25 @@ def get_study_sizes() -> GetStudySizesResponse:
     return GetStudySizesResponse(**response_json)
 
 
-def get_field_values() -> list[dict]:
+def get_field_values(types: list[str] = [], fields: list[str] = []) -> list[dict]:
     """
     API call to /stats/field/values.
 
     Retrieves information about individual fields.
 
+    Args:
+        types (List[str]): List of types to include in the query.
+        fields (List[str]): List of fields to include in the query.
+
     Returns:
-        list: _description_
+        List[Dict]: JSON response from the API as a list of dictionaries.
     """
-    response_json = httpx.get(StatsEndpoints.FIELD_VALUES).json()
-    return response_json
+    params = {}
+    if types:
+        params.update({"types": "|".join(types)})
+    if fields:
+        params.update({"fields": "|".join(fields)})
+
+    response = httpx.get(StatsEndpoints.FIELD_VALUES, params=params)
+    response.raise_for_status()
+    return response.json()
