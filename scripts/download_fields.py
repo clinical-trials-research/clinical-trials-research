@@ -1,3 +1,4 @@
+import shelve
 from pathlib import Path
 
 import pandas as pd
@@ -12,18 +13,19 @@ def main():
     response = api.get_studies()
     df = pd.json_normalize(response.studies)
 
-    for _ in tqdm.trange(number_of_pages):
-        try:
-            if response.nextPageToken:
-                response = api.get_studies(page_token=response.nextPageToken)
-                df = pd.concat(
-                    [df, pd.json_normalize(response.studies)], ignore_index=True
-                )
-            else:
+    with shelve.open("./data/raw/fields/fields.shelf", writeback=True) as db:
+        for _ in tqdm.trange(number_of_pages):
+            try:
+                if response.nextPageToken:
+                    response = api.get_studies(page_token=response.nextPageToken)
+                    df = pd.concat(
+                        [df, pd.json_normalize(response.studies)], ignore_index=True
+                    )
+                else:
+                    break
+            except Exception as e:
+                print(f"Encountered erorr {e}.")
                 break
-        except Exception as e:
-            print(f"Encountered erorr {e}.")
-            break
 
     print("Finished downloading! Converting to pickle file...")
     df.to_pickle("./data/field.pkl")

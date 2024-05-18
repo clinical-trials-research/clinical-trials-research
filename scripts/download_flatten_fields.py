@@ -27,7 +27,7 @@ def save_fields(fields: dict, db):
 
 
 def main():
-    Path("./data/raw/fields").mkdir(parents=True, exist_ok=True)
+    Path("./data/raw/flattened_fields").mkdir(parents=True, exist_ok=True)
 
     fields = defaultdict(list)
     number_of_pages = (api.get_study_sizes().totalStudies // 1000) + 1
@@ -36,7 +36,7 @@ def main():
     batch_size = 100
     batch_count = 0
 
-    with shelve.open("./fields/fields.shelf", writeback=True) as db:
+    with shelve.open("./data/raw/flattened_fields/flattened_fields.shelf", writeback=True) as db:
         for _ in tqdm.trange(number_of_pages):
             for trial in response.studies:
                 process_trial(fields, trial)
