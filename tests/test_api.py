@@ -13,3 +13,10 @@ def test_get_study_sizes() -> None:
     Test API call to /stats/size.
     """
     api.get_study_sizes()
+
+
+def test_get_field_values() -> None:
+    """
+    Test API call to /stats/field/values.
+    """
+    api.get_field_values()
