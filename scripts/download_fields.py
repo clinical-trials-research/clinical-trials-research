@@ -9,7 +9,7 @@ from ctr import api
 def main():
     Path("./data/raw").mkdir(parents=True, exist_ok=True)
 
-    number_of_pages = (api.get_study_sizes().totalStudies // 1000) + 1
+    number_of_pages = (response.totalCount // 1000) + 1
     response = api.get_studies()
     df = pd.json_normalize(response.studies)
 
