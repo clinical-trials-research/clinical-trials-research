@@ -1,13 +1,14 @@
 from pydantic import BaseModel
-
+from typing import List, Optional
 
 class GetStudiesResponse(BaseModel):
     """
     Response from /studies.
     """
 
+    totalCount: Optional[int] = 0
     studies: list
-    nextPageToken: str
+    nextPageToken: Optional[str] = ""
 
 
 class GetStudySizesResponse(BaseModel):
